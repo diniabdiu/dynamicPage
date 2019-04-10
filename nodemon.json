@@ -1,0 +1,6 @@
+{
+    "watch": ["app.js", "views/", "./"],
+    "ignore": ["node_modules/", ".vscode/"],
+    "ext": "*",
+    "delay": 1
+}

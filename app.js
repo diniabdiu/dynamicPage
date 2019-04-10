@@ -6,8 +6,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-res.render('landing');
+    res.render('landing');
 });
+
 var campgrounds = [
     {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
     {name: 'Salmon Creek', image: 'https://farm5.staticflickr.com/4044/4175370953_5488caf554.jpg'},
@@ -17,6 +18,7 @@ var campgrounds = [
 app.get('/campground', function(req, res) {
     res.render('campgrounds', {campgrounds: campgrounds});
 });
+
 app.post('/campgrounds', function(req, res) {
     res.send('YOU HIT THE POST ROUTE!');
     var name = req.body.name
