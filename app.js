@@ -16,17 +16,17 @@ var campgrounds = [
 
 ];
 app.get('/campgrounds', function(req, res) {
-    res.render('campgrounds', {campgrounds: campgrounds});
+    res.render('campgrounds', { campgrounds });
 });
 
-app.post('/campgrounds', function(req, res) {
-    res.send('YOU HIT THE POST ROUTE!');
+app.post('/campgrounds/new', function(req, res) {
     var name = req.body.name
     var image = req.body.image
-    var newCampground = {name: name, image: image}
+    var newCampground = {name, image}
     campgrounds.push(newCampground);
     res.redirect('/campgrounds');
 });
+
 app.get('/campgrounds/new', function(req, res) {
     res.render('new.ejs');
 });
