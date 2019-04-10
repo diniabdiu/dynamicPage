@@ -15,7 +15,7 @@ var campgrounds = [
     {name: 'Salmon Creek', image: 'https://farm6.staticflickr.com/5108/5789045796_27c9217bf2.jpg'}
 
 ];
-app.get('/campground', function(req, res) {
+app.get('/campgrounds', function(req, res) {
     res.render('campgrounds', {campgrounds: campgrounds});
 });
 
