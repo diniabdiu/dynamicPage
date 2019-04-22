@@ -6,47 +6,34 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 const PORT = parseInt(process.env.PORT);
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/yelp_camp');
+mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true});
 
 //SCHEMA SETUP
 var campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
  var Campground = mongoose.model('Campground', campgroundSchema);
 
 //  CampgroundSchema.create(
 //           {
 //             name: 'Salmon Creek',
-//             image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'
+//             image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg',
+//             description: 'This is a huge granite hill, no bathrooms. No water. Beautiful granite!'
 //          }, function(err, campground) {
 //          if(err) {
 //              console.log(err);
-//          }else {
+//          }else { 
 //              console.log('NEWLY CREATED CAMPGROUND: ');
 //              console.log(campground);
 //          }
 //      });
 
-
-var campgrounds = [
-    {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm5.staticflickr.com/4044/4175370953_5488caf554.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm6.staticflickr.com/5108/5789045796_27c9217bf2.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm5.staticflickr.com/4044/4175370953_5488caf554.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm5.staticflickr.com/4044/4175370953_5488caf554.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm6.staticflickr.com/5108/5789045796_27c9217bf2.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm2.staticflickr.com/1424/1430198323_c26451b047.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm5.staticflickr.com/4044/4175370953_5488caf554.jpg'},
-    {name: 'Salmon Creek', image: 'https://farm6.staticflickr.com/5108/5789045796_27c9217bf2.jpg'}
-
-];
 app.get('/', function(req, res) {
     res.render('landing');
 });
-
+// Index - show all campgrounds
 app.get('/campgrounds', function(req, res) {
     // Get all campgrounds from DB
     Campground.find({}, function(err, allCampgrounds) {
@@ -58,7 +45,7 @@ app.get('/campgrounds', function(req, res) {
     })
     // 
 });
-
+//Create- add new campground to DB
 app.post('/campgrounds/new', function(req, res) {
     var name = req.body.name
     var image = req.body.image
@@ -71,12 +58,14 @@ app.post('/campgrounds/new', function(req, res) {
         }
     });
 });
-
+//NEW show form to create new campground
 app.get('/campgrounds/new', function(req, res) {
     res.render('new');
 });
 
-
+app.get('/campgrounds/:id', function(req, res) {
+    res.send('shasa');
+});
 
 
 app.listen(parseInt(PORT), process.env.ip, function(){
