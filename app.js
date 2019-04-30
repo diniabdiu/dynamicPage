@@ -1,20 +1,16 @@
 require('dotenv').config();
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
+var express     = require('express');
+    app         = express(),
+    bodyParser  = require('body-parser'),
+    mongoose    = require('mongoose'),
+    Campground  = require('./models/campground'),
+
+
+mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
-const PORT = parseInt(process.env.PORT);
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true});
 
-//SCHEMA SETUP
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
- var Campground = mongoose.model('Campground', campgroundSchema);
+const PORT = parseInt(process.env.PORT);
 
 //  CampgroundSchema.create(
 //           {
@@ -29,7 +25,6 @@ var campgroundSchema = new mongoose.Schema({
 //              console.log(campground);
 //          }
 //      });
-
 app.get('/', function(req, res) {
     res.render('landing');
 });
